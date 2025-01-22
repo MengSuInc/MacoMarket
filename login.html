@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+		<title>
+			MACO MARKET		</title>
+		<link href="./login/chunk-vendors.c8a1e5a5.css" rel="stylesheet">
+		<link href="./login/app.b2f8c71c.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./login/817.db7cb18f.css">
+		<link rel="stylesheet" href="./login/layui.css">
+		<link rel="stylesheet" type="text/css" href="./login/30.4136bffb.css">
+		<script src="./login/layerm.js.ดาวน์โหลด"></script><link href="./login/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+		<script src="./login/jquery.min.js.ดาวน์โหลด"></script>
+		<script src="./login/layui.all.js.ดาวน์โหลด"></script><link id="layuicss-laydate" rel="stylesheet" href="./login/laydate.css" media="all"><link id="layuicss-layer" rel="stylesheet" href="./login/layer(1).css" media="all"><link id="layuicss-skincodecss" rel="stylesheet" href="./login/code.css" media="all">	
+		<script src="./login/common.js.ดาวน์โหลด"></script>
+	</head>
+	<body style="background-color:#1db8d2">
+		<div>
+			<div>
+				
+				<div class="box-content user-con-box">
+					<div>
+						<div class="language-menu">
+                    		<div class="language-menu__toggle">
+                    			<span>TH</span>                    		</div>
+                    		<ul class="language-menu__list" style="display: none;">
+                    			<li class="langSelect " data-lang="en">
+                    				<span>EN</span>
+                    				<span>English</span>
+                    			</li>
+                    			<li class="langSelect " data-lang="zh">
+                    				<span>CN</span>
+                    				<span>中文</span>
+                    			</li>
+                    			<li class="langSelect language-menu__selected" data-lang="th">
+                    				<span>TH</span>
+                    				<span>แบบไทย</span>
+                    			</li>
+                    			<li class="langSelect " data-lang="id">
+                    				<span>ID</span>
+                    				<span>bahasa Indonesia</span>
+                    			</li>
+                    		</ul>
+                    	</div>
+						<div class="login-title">
+							<h1>
+								ยินดีต้อนรับสู่เข้าสู่ระบบ							</h1>
+							<p>
+								ยังไม่มีบัญชี？
+								<span>
+									<a href="reg.html" class="">
+										ไปที่การลงทะเบียน									</a>
+								</span>
+							</p>
+						</div>
+						<div class="login-account mt65">
+							<input name="account" type="text" placeholder="กรุณากรอกชื่อของคุณ" id="account">
+						</div>
+						<div class="login-account mt20">
+							<input name="account" type="password" placeholder="กรุณากรอกรหัสผ่าน" id="passwd">
+						</div>
+						<div class="login-customer jump" data-url="https://lin.ee/BsetyST">
+							ติดต่อฝ่ายบริการลูกค้า						</div>
+						<div class="login-button" id="loginBtn">
+							เข้าสู่ระบบ						</div>
+						<div class="forget jump" data-url="https://lin.ee/BsetyST">
+							ลืมรหัสผ่าน						</div>
+					</div>
+				</div>
+				<!---->
+				<!---->
+			</div>
+		</div>
+		<script>
+		$(function(){
+		    $(".language-menu__toggle").on('click', function(){
+	             $(".language-menu__list").show();
+	        });
+	        
+	        $(".langSelect").on('click', function(){
+	            var lang = $(this).attr('data-lang');
+	            $.post('/login_ajax.html',{request:'setLang',lang:lang},function(data){
+                    if (data.status == 1) {
+                        window.location.reload();
+                    } else {
+                    	layer.msg(data.msg);
+                    }
+                });
+	        });
+		    $("#loginBtn").on('click', function(){
+                var account = $("#account").val();
+                var passwd = $("#passwd").val();
+                if (!account) {
+                    layer.msg("กรุณากรอกชื่อของคุณ");
+                    return ;
+                }
+                if (!passwd) {
+                    layer.msg("กรุณากรอกรหัสผ่าน");
+                    return ;
+                }
+                $.post('/login_ajax.html',{request:'login',account:account,passwd:passwd},function(data){
+                    if (data.status == 1) {
+                        window.location.href = '/index.html';
+                    } else {
+                    	layer.msg(data.msg);
+                    }
+                });
+            }); 
+		});
+		</script>
+	
+
+</body></html>

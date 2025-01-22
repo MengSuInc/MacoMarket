@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://tiktok.thaipvz.com/reg.html?agent=93 -->
+<html lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1,minimum-scale=1,user-scalable=0,width=device-width,initial-scale=1">
+		<title>
+			MACO MARKET		</title>
+		<link href="./reg/chunk-vendors.c8a1e5a5.css" rel="stylesheet">
+		<link href="./reg/app.b2f8c71c.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./reg/817.db7cb18f.css">
+		<link rel="stylesheet" type="text/css" href="./reg/548.7c0fb7c7.css">
+		<link rel="stylesheet" href="./reg/layui.css">
+		<link rel="stylesheet" type="text/css" href="./reg/30.4136bffb.css">
+		<script src="./reg/layerm.js.ดาวน์โหลด"></script><link href="./reg/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+		<script src="./reg/jquery.min.js.ดาวน์โหลด"></script>
+		<script src="./reg/layui.all.js.ดาวน์โหลด"></script><link id="layuicss-laydate" rel="stylesheet" href="./reg/laydate.css" media="all"><link id="layuicss-layer" rel="stylesheet" href="./reg/layer(1).css" media="all"><link id="layuicss-skincodecss" rel="stylesheet" href="./reg/code.css" media="all">	
+		<script src="./reg/common.js.ดาวน์โหลด"></script>
+	</head>
+	<body>
+		<div>
+			<div>
+			
+				<div class="box-content user-con-box">
+					<div style="position: relative;">
+						<div class="language-menu aaa">
+                    		<div class="language-menu__toggle">
+                    			<span>TH</span>                    		</div>
+                    		<ul class="language-menu__list" style="display: none;">
+                    			<li class="langSelect " data-lang="en">
+                    				<span>EN</span>
+                    				<span>English</span>
+                    			</li>
+                    			<li class="langSelect " data-lang="zh">
+                    				<span>CN</span>
+                    				<span>中文</span>
+                    			</li>
+                    			<li class="langSelect language-menu__selected" data-lang="th">
+                    				<span>TH</span>
+                    				<span>แบบไทย</span>
+                    			</li>
+                    			<li class="langSelect " data-lang="id">
+                    				<span>ID</span>
+                    				<span>bahasa Indonesia</span>
+                    			</li>
+                    		</ul>
+                    	</div>
+						<div class="register-title">
+							การลงทะเบียนผู้ใช้						</div>
+						<div class="register-account mt65">
+							<input name="account" placeholder="กรุณากรอกชื่อของคุณ" id="account">
+						</div>
+						<!--<div class="register-account mt20">-->
+						<!--	<input name="mobile" oninput="value=value.replace(/[^\d]/g,&#39;&#39;)"-->
+						<!--	placeholder="กรุณากรอกหมายเลขโทรศัพท์มือถือของคุณ"  id="mobile">-->
+						<!--</div>-->
+						<div class="register-account mt20">
+							<input name="passwd" type="password" placeholder="กรุณากรอกรหัสผ่าน" id="passwd">
+						</div>
+						<div class="register-account mt20">
+							<input name="cpasswd" type="password" placeholder="กรุณากรอกรหัสผ่านของคุณอีกครั้ง" id="cpasswd">
+						</div>
+						<!--<div class="register-account mt20">-->
+						<!--	<input name="realname" placeholder="กรุณากรอกชื่อจริงของคุณ"   id="realname">-->
+						<!--</div>-->
+						<button class="register-button" id="regBtn">
+							ลงทะเบียน						</button>
+						<div class="has-account">
+							มีบัญชี？
+							<span>
+								<a href="login.html" class="">
+									สลับการเข้าสู่ระบบ								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!---->
+				<!---->
+			</div>
+		</div>
+		<script>
+		$(function(){
+		    $(".language-menu__toggle").on('click', function(){
+	             $(".language-menu__list").show();
+	        });
+	        
+	        $(".langSelect").on('click', function(){
+	            var lang = $(this).attr('data-lang');
+	            $.post('/login_ajax.html',{request:'setLang',lang:lang},function(data){
+                    if (data.status == 1) {
+                        window.location.reload();
+                    } else {
+                    	layer.msg(data.msg);
+                    }
+                });
+	        });
+		    $("#regBtn").on('click', function(){
+                var account = $("#account").val();
+                var passwd = $("#passwd").val();
+                var mobile = $("#mobile").val();
+                var cpasswd = $("#cpasswd").val();
+                var realname = $("#realname").val();
+                if (!account) {
+                    layer.msg("กรุณากรอกชื่อของคุณ");
+                    return ;
+                }
+                // if (!mobile) {
+                //     layer.msg("กรุณากรอกหมายเลขโทรศัพท์มือถือของคุณ");
+                //     return ;
+                // }
+                if (!passwd) {
+                    layer.msg("กรุณากรอกรหัสผ่าน");
+                    return ;
+                }
+                if (!cpasswd) {
+                    layer.msg("กรุณากรอกรหัสผ่านของคุณอีกครั้ง");
+                    return ;
+                }
+                if (passwd != cpasswd) {
+                    layer.msg("รหัสผ่านที่ป้อนสองครั้งไม่สอดคล้องกัน");
+                    return ;
+                }
+                // if (!realname) {
+                //     layer.msg("กรุณากรอกชื่อจริงของคุณ");
+                //     return ; 
+                // },mobile:mobile,realname:realname
+                $.post('/login_ajax.html',{request:'register',account:account,passwd:passwd},function(data){
+                    if (data.status == 1) {
+                        layerm.open({
+	            		    content: "การลงทะเบียนสำเร็จ คุณต้องการเข้าสู่ระบบทันทีหรือไม่?"
+	            		    ,btn: ["ตกลง", "อย่า"]
+	            		    ,yes: function(index){
+	            		      window.location.href = '/login.html';
+	            		      layer.close(index);
+	            		    }
+	            		});
+                        
+                    } else {
+                    	layer.msg(data.msg);
+                    }
+                });
+            }); 
+		});
+		</script>
+	
+
+</body></html>
