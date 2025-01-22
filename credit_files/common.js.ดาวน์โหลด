@@ -1,0 +1,40 @@
+$(function(){
+    
+    $(".language-menu__toggle").on('click', function(){
+         $(".language-menu__list").show();
+    });
+	        
+    $(".langSelect").on('click', function(){
+        var lang = $(this).attr('data-lang');
+        $.post('/login_ajax.html',{request:'setLang',lang:lang},function(data){
+            if (data.status == 1) {
+                window.location.reload();
+            } else {
+            	layer.msg(data.msg);
+            }
+        });
+    });
+	        
+    
+    $(".jump").on('click', function(){
+        var url = $(this).attr('data-url');
+        window.location.href = url;
+    });
+
+    $(".tab-item").on('click',function(){
+        $(".tab-item").removeClass('active');
+        $(this).addClass('active');
+        $(".hot-tab-con").removeClass('show');
+        $(".tab-"+$(this).attr('data-tab')).addClass('show');
+    });
+    
+    $("#openMenu").on('click', function(){
+        $(".el-drawer__wrapper").show(); 
+    });
+    
+    $("#closeMenu").on('click', function(){
+        $(".el-drawer__wrapper").hide(); 
+    });
+    
+    
+});
